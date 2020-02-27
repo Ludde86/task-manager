@@ -10,8 +10,12 @@ const App = () => {
 	// we need to wrap the entire app with the context provider
 	return (
 		<TaskListContextProvider>
-			<div>
-				<TaskList />
+			<div className="container">
+				<div className="app-wrapper">
+					<div className="main">
+						<TaskList />
+					</div>
+				</div>
 			</div>
 		</TaskListContextProvider>
 	);
