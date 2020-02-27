@@ -3,6 +3,7 @@ import '../App.css';
 import TaskList from './TaskList';
 import TaskListContextProvider from '../context/TaskListContext';
 import TaskForm from './TaskForm';
+import Header from './Header';
 
 // functional component
 const App = () => {
@@ -14,6 +15,7 @@ const App = () => {
 			<div className="container">
 				<div className="app-wrapper">
 					<div className="main">
+						<Header />
 						<TaskForm />
 						<TaskList />
 					</div>
