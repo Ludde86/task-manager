@@ -4,12 +4,12 @@ import React from 'react';
 const TaskForm = () => {
 	return (
 		<form className="form">
-			<input type="text" className="task-input" placeholder="Add Task.." required />
+			<input type="text" className="task-input" placeholder="Att Göra.." required />
 			<div className="buttons">
 				<button type="submit" className="btn add-task-btn">
-					Add Task
+					Lägg till
 				</button>
-				<button className="btn clear-btn">Clear</button>
+				<button className="btn clear-btn">Rensa</button>
 			</div>
 		</form>
 	);
