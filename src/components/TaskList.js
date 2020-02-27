@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { TaskListContext } from '../context/TaskListContext';
+import Task from './Task';
 
 // useContext allows us to bring (return) in the current context value
 // to use that context we must import that context itself

@@ -8,7 +8,7 @@ export const TaskListContext = createContext();
 
 // create a component which will include the state (as a convention we use the name of the context followed by provider)
 // this component will then renders the state, as a list (this list we will create in another component)
-const TaskListContextProvider = () => {
+const TaskListContextProvider = (props) => {
 	// useState accepts an argument which is the initial state
 	// we set the initial state as an array with with three objects
 	// useState returns an array with two values
@@ -21,7 +21,11 @@ const TaskListContextProvider = () => {
 		{ task: 'Write some code', id: 3 }
 	]);
 
-	return <div>Task List Context</div>;
+	// here we provide our context (share this state with our react components)
+	// this provider will share (this value) the state (tasks),
+	// -> and wrap this provider, with the entire application (props.children -> needs as an argument in this component)
+	// children refers to all the components, which will be wrapped by the contexts provider
+	return <TaskListContext.Provider value={{ tasks }}>{props.children}</TaskListContext.Provider>;
 };
 
 export default TaskListContextProvider;

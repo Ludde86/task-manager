@@ -1,11 +1,20 @@
 import React from 'react';
 import '../App.css';
+import TaskList from './TaskList';
+import TaskListContextProvider from '../context/TaskListContext';
 
 // functional component
 const App = () => {
 	// create state -> insert task into the state (manually) -> render the tasks on the page
 
-	return <div>App</div>;
+	// we need to wrap the entire app with the context provider
+	return (
+		<TaskListContextProvider>
+			<div>
+				<TaskList />
+			</div>
+		</TaskListContextProvider>
+	);
 };
 
 export default App;
