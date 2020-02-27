@@ -18,7 +18,7 @@ const TaskList = () => {
 		<div>
 			<ul className="list">
 				{tasks.map((task) => {
-					return <Task task={task} />; // we pass each task to the Task.js
+					return <Task task={task} key={task.id} />; // we pass each task to the Task.js
 				})}
 			</ul>
 		</div>
