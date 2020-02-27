@@ -16,9 +16,9 @@ const TaskListContextProvider = (props) => {
 	// -> the function which we use to edit or update the state (data)
 	// in order to bring these values we have to use an array destructuring
 	const [ tasks, setTasks ] = useState([
-		{ task: 'Read the book', id: 1 },
-		{ task: 'Wash the car', id: 2 },
-		{ task: 'Write some code', id: 3 }
+		{ title: 'Read the book', id: 1 },
+		{ title: 'Wash the car', id: 2 },
+		{ title: 'Write some code', id: 3 }
 	]);
 
 	// here we provide our context (share this state with our react components)
