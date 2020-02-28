@@ -34,11 +34,19 @@ const TaskListContextProvider = (props) => {
 		setTasks([ ...tasks, { title, id: uuidv1() } ]);
 	};
 
+	// this function will take id as a parameter, and remove the task based on the id
+	// -> update the current state, with an array helper method (filter)
+	// this function returns a new array based on conditions -> item.id NOT equal to id
+	// -> according to this condition, the filter method will keep the item in the array or it will FILTER the item out
+	const removeTask = (id) => {
+		setTasks(tasks.filter((task) => task.id !== id));
+	};
+
 	// here we provide our context (share this state with our react components)
 	// this provider will share (this value) the state (tasks),
 	// -> and wrap this provider, with the entire application (props.children -> needs as an argument in this component)
 	// children refers to all the components, which will be wrapped by the contexts provider
-	return <TaskListContext.Provider value={{ tasks, addTask }}>{props.children}</TaskListContext.Provider>;
+	return <TaskListContext.Provider value={{ tasks, addTask, removeTask }}>{props.children}</TaskListContext.Provider>;
 };
 
 export default TaskListContextProvider;
