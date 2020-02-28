@@ -22,6 +22,10 @@ const TaskListContextProvider = (props) => {
 		{ title: 'Write some code', id: 3 }
 	]);
 
+	// for the EDIT button
+	// -> create a new state where we store the task we will edit
+	const [ editItem, setEditItem ] = useState(null);
+
 	// functions for the funcionality
 	// each function needs to be passed in the provider, in order to share them in other components
 
@@ -47,12 +51,45 @@ const TaskListContextProvider = (props) => {
 		setTasks([]);
 	};
 
+	// this function will find the item we will update
+	// -> accepts the id parameter
+	// -> to find the item we have to use an array helper method (find())
+	// -> this helper function loops through the array and finds an item based on conditions
+	// -> we have to compare the current item (id), and the actual id
+	// once we find the needed item then we update this state, with the item we will edit
+	const findItem = (id) => {
+		const item = tasks.find((task) => task.id === id);
+		setEditItem(item);
+	};
+
+	// then we need a function to handle the edit task
+	// -> it will take TWO parameters (title and id)
+	// during the update of the task, we dont need to update the id
+	// -> so we use a map function, to replace the current array, with this new updated array (newTasks)
+	// -> which we will pass the new edited task
+	// -> conditions -> the id of the task is EQUAL to id
+	// -> true, return a new object, with the new edited object (task)
+	// -> false, return the current id of the task
+	// to update the state, we update it with this new task
+	const editTask = (title, id) => {
+		const newTasks = tasks.map(
+			(
+				task // the current item
+			) =>
+				task.id === id // if the current id of the item, is the same is the new item (we want to edit)
+					? { title, id } // we store this new item
+					: task // else, we store the current (old) item
+		);
+
+		setTasks(newTasks); // and set, based on the condition, the item in the state
+	};
+
 	// here we provide our context (share this state with our react components)
 	// this provider will share (this value) the state (tasks),
 	// -> and wrap this provider, with the entire application (props.children -> needs as an argument in this component)
 	// children refers to all the components, which will be wrapped by the contexts provider
 	return (
-		<TaskListContext.Provider value={{ tasks, addTask, removeTask, clearList }}>
+		<TaskListContext.Provider value={{ tasks, addTask, removeTask, clearList, findItem, editTask, editItem }}>
 			{props.children}
 		</TaskListContext.Provider>
 	);

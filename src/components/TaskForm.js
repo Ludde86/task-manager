@@ -1,10 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { TaskListContext } from '../context/TaskListContext';
 
 // this functional component will take care of the input fields, this will add the tasks
 const TaskForm = () => {
 	// bring in the context, and destructuring to  and get access to the function we want to use here
-	const { addTask, clearList } = useContext(TaskListContext);
+	const { addTask, clearList, editItem, editTask } = useContext(TaskListContext);
 
 	// create the state, in which we store the current value (title) of the task
 	const [ title, setTitle ] = useState('');
@@ -24,6 +24,27 @@ const TaskForm = () => {
 		addTask(title);
 		setTitle('');
 	};
+
+	// we have to look at how to editItem value is changing
+	// -> for this we gonna use the useEffect function (the old component did mount)
+	// -> it rerenders the component once this state is updated
+	// -> we have to check if editItem is equal to null or NOT
+	// -> NOT null, we have to change the value of the title, and set as the title od editItem
+	// -> if NULL, set the title as an empty string
+	useEffect(
+		() => {
+			if (editItem !== null) {
+				// -> editing the item
+				setTitle(editItem.title);
+			} else {
+				setTitle('');
+			}
+		},
+		[ editItem ]
+	);
+
+	// then we need to run this hook ONLY when the value of editItem updates
+	// -> to do that, we need to pass, as a second argument, the state
 
 	return (
 		<form className="form" onSubmit={handleSubmit}>
