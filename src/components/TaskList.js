@@ -16,11 +16,16 @@ const TaskList = () => {
 	// we will create a new component for each task (this component is the whole list of tasks)
 	return (
 		<div>
-			<ul className="list">
-				{tasks.map((task) => {
-					return <Task task={task} key={task.id} />; // we pass each task to the Task.js
-				})}
-			</ul>
+			{tasks.length ? ( // when there is atleast one task in the array
+				<ul className="list">
+					{tasks.map((task) => {
+						return <Task task={task} key={task.id} />; // we pass each task to the Task.js
+					})}
+				</ul>
+			) : (
+				// else
+				<div className="no-tasks">Inget att göra :D</div>
+			)}
 		</div>
 	);
 };
