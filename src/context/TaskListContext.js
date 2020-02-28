@@ -1,4 +1,5 @@
 import React, { useState, createContext } from 'react';
+import { v1 as uuidv1 } from 'uuid';
 
 // createContext allows us to create context
 // useState allows us to create the state
@@ -21,11 +22,23 @@ const TaskListContextProvider = (props) => {
 		{ title: 'Write some code', id: 3 }
 	]);
 
+	// functions for the funcionality
+	// each function needs to be passed in the provider, in order to share them in other components
+
+	// this function will take a title as agument, and update the array (state)
+	// to create a new task, we need to define its title and id,
+	// -> add a newly created task to the current array (state)
+	// we spread (copy) the current state, and add a new OBJECT with the title and the unique id (install uuid),
+	// -> set this (new array) to the tasks array (state)
+	const addTask = (title) => {
+		setTasks([ ...tasks, { title, id: uuidv1() } ]);
+	};
+
 	// here we provide our context (share this state with our react components)
 	// this provider will share (this value) the state (tasks),
 	// -> and wrap this provider, with the entire application (props.children -> needs as an argument in this component)
 	// children refers to all the components, which will be wrapped by the contexts provider
-	return <TaskListContext.Provider value={{ tasks }}>{props.children}</TaskListContext.Provider>;
+	return <TaskListContext.Provider value={{ tasks, addTask }}>{props.children}</TaskListContext.Provider>;
 };
 
 export default TaskListContextProvider;
