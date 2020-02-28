@@ -21,8 +21,14 @@ const TaskForm = () => {
 	// -> we need to clean the input field
 	const handleSubmit = (e) => {
 		e.preventDefault(); // prevent the default action (reload the page) of submit button
-		addTask(title);
-		setTitle('');
+		if (editItem === null) {
+			// if there is none editItem
+			addTask(title); // then we add a new task
+			setTitle('');
+		} else {
+			// if there is an editItem, we pass it's current id with the new title
+			editTask(title, editItem.id);
+		}
 	};
 
 	// we have to look at how to editItem value is changing
@@ -42,9 +48,10 @@ const TaskForm = () => {
 		},
 		[ editItem ]
 	);
-
 	// then we need to run this hook ONLY when the value of editItem updates
 	// -> to do that, we need to pass, as a second argument, the state
+	// to edit a task (not only add a new one), we need to run editTask once the form is submitted
+	// -> this we do in the handleSubmit, with some conditions
 
 	return (
 		<form className="form" onSubmit={handleSubmit}>
