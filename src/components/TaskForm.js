@@ -4,7 +4,7 @@ import { TaskListContext } from '../context/TaskListContext';
 // this functional component will take care of the input fields, this will add the tasks
 const TaskForm = () => {
 	// bring in the context, and destructuring to  and get access to the function we want to use here
-	const { addTask } = useContext(TaskListContext);
+	const { addTask, clearList } = useContext(TaskListContext);
 
 	// create the state, in which we store the current value (title) of the task
 	const [ title, setTitle ] = useState('');
@@ -39,7 +39,12 @@ const TaskForm = () => {
 				<button type="submit" className="btn add-task-btn">
 					Lägg till
 				</button>
-				<button className="btn clear-btn">Rensa</button>
+				<button
+					className="btn clear-btn"
+					onClick={clearList} // this function sets the array state as empty
+				>
+					Rensa
+				</button>
 			</div>
 		</form>
 	);
