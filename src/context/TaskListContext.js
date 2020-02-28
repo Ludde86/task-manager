@@ -82,6 +82,7 @@ const TaskListContextProvider = (props) => {
 		);
 
 		setTasks(newTasks); // and set, based on the condition, the item in the state
+		setEditItem(null);
 	};
 
 	// here we provide our context (share this state with our react components)

@@ -21,7 +21,7 @@ const TaskForm = () => {
 	// -> we need to clean the input field
 	const handleSubmit = (e) => {
 		e.preventDefault(); // prevent the default action (reload the page) of submit button
-		if (editItem === null) {
+		if (!editItem) {
 			// if there is none editItem
 			addTask(title); // then we add a new task
 			setTitle('');
@@ -39,7 +39,7 @@ const TaskForm = () => {
 	// -> if NULL, set the title as an empty string
 	useEffect(
 		() => {
-			if (editItem !== null) {
+			if (editItem) {
 				// -> editing the item
 				setTitle(editItem.title);
 			} else {
@@ -65,7 +65,7 @@ const TaskForm = () => {
 			/>
 			<div className="buttons">
 				<button type="submit" className="btn add-task-btn">
-					Lägg till
+					{editItem ? 'Ändra' : 'Lägg till'}
 				</button>
 				<button
 					className="btn clear-btn"
