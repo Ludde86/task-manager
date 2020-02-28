@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 import { v1 as uuidv1 } from 'uuid';
 
 // createContext allows us to create context
@@ -10,21 +10,49 @@ export const TaskListContext = createContext();
 // create a component which will include the state (as a convention we use the name of the context followed by provider)
 // this component will then renders the state, as a list (this list we will create in another component)
 const TaskListContextProvider = (props) => {
+	// for the local storage
+	// in order to get data from the local storage we, we need to get the data from it (getItem)
+	// if the local storage is empty, we should set the initial state as an empty array
+	// we even need to parse data because it is stored in JSON format
+	// -> we do that with the parse method
+
+	const initialState = JSON.parse(localStorage.getItem('tasks')) || [];
+
 	// useState accepts an argument which is the initial state
-	// we set the initial state as an array with with three objects
-	// useState returns an array with two values
-	// -> the actual data (the array of these objecs)
-	// -> the function which we use to edit or update the state (data)
 	// in order to bring these values we have to use an array destructuring
-	const [ tasks, setTasks ] = useState([
-		{ title: 'Read the book', id: 1 },
-		{ title: 'Wash the car', id: 2 },
-		{ title: 'Write some code', id: 3 }
-	]);
+	const [ tasks, setTasks ] = useState(
+		/* here we store the local storage */
+		initialState
+		/* hardcoded array (with tasks) */
+		// we set the initial state as an array with with three objects
+		// useState returns an array with two values
+		// -> the actual data (the array of these objecs)
+		// -> the function which we use to edit or update the state (data)
+		// [
+		//{ title: 'Read the book', id: 1 },
+		// { title: 'Wash the car', id: 2 },
+		// { title: 'Write some code', id: 3 }
+		// ]
+	);
 
 	// for the EDIT button
 	// -> create a new state where we store the task we will edit
 	const [ editItem, setEditItem ] = useState(null);
+
+	/* we are gonna store the state in the local storage */
+	// this we have to do using useEffect
+	// setItem function takes two arguments
+	// -> first the name of the collection (string value)
+	// -> the actual array (transformed into JSON format -> JSON.stringify())
+	useEffect(
+		() => {
+			localStorage.setItem('tasks', JSON.stringify(tasks));
+		},
+		[ tasks ]
+	);
+	// and once the tasks is updated, we run this effect
+	// in order to store tasks in the local storage, we have to define the initial value of the state,
+	// -> where we should store an array from the local storage
 
 	// functions for the funcionality
 	// each function needs to be passed in the provider, in order to share them in other components
